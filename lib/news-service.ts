@@ -1,4 +1,4 @@
-import type { NewsItem } from "@/types/news";
+import type { NewsItem } from "@/app/types/news";
 
 // Enhanced version of fetchNews that supports filtering
 export async function fetchNews(): Promise<NewsItem[]> {
@@ -79,7 +79,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Ogden Standard-Examiner",
       publishedAt: "2025-04-05T14:30:00Z",
       url: "https://example.com/housing-development",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Attend the next city council meeting on April 15 to voice support",
         "Contact your district representative to thank them for supporting affordable housing",
@@ -99,7 +99,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Salt Lake Tribune",
       publishedAt: "2025-04-06T09:15:00Z",
       url: "https://example.com/education-funding",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Contact your state representative and senator to express support for HB123",
         "Join the Utah Education Association's advocacy campaign",
@@ -120,7 +120,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Associated Press",
       publishedAt: "2025-04-04T16:45:00Z",
       url: "https://example.com/climate-bill",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Call your representatives in Congress to express support for the climate bill",
         "Sign the Sierra Club's petition supporting strong climate legislation",
@@ -140,7 +140,7 @@ function getMockNewsData(): NewsItem[] {
       source: "KSL News",
       publishedAt: "2025-04-07T11:20:00Z",
       url: "https://example.com/mental-health",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Share information about the new mental health services with your community",
         "Volunteer as a crisis hotline operator (training provided)",
@@ -160,7 +160,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Reuters",
       publishedAt: "2025-04-03T10:00:00Z",
       url: "https://example.com/voting-rights",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Check your voter registration status and update if needed",
         "Volunteer as a poll worker for upcoming elections",
@@ -180,7 +180,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Associated Press",
       publishedAt: "2025-04-02T13:45:00Z",
       url: "https://example.com/immigration-policy",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Share information about the policy changes with affected communities",
         "Support organizations providing legal assistance to immigrants",
@@ -200,7 +200,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Deseret News",
       publishedAt: "2025-04-01T09:30:00Z",
       url: "https://example.com/economic-development",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Attend information sessions about the initiative in your community",
         "Contact your state representatives to express support for rural development",
@@ -212,7 +212,7 @@ function getMockNewsData(): NewsItem[] {
       id: "8",
       title: "Local School Board Approves New Curriculum Standards",
       summary:
-        "The Ogden School Board has approved new curriculum standards for K-12 education.",
+        "The Ogden School Board has unanimously approved new curriculum standards for K-12 education.",
       content:
         "The Ogden School Board has unanimously approved new curriculum standards for K-12 education, focusing on STEM education, critical thinking skills, and cultural competency. The new standards will be implemented beginning in the 2025-2026 school year.",
       category: "Education",
@@ -220,7 +220,7 @@ function getMockNewsData(): NewsItem[] {
       source: "Ogden Standard-Examiner",
       publishedAt: "2025-03-31T15:20:00Z",
       url: "https://example.com/curriculum-standards",
-      imageUrl: "/placeholder.svg?height=200&width=400",
+      imageUrl: "/placeholder.svg",
       actions: [
         "Attend school board meetings to provide feedback on implementation",
         "Volunteer in local schools to support teachers with the transition",

@@ -3,6 +3,7 @@ import { NewsHeader } from "@/components/news-header";
 import { CategorySearch } from "@/components/category-search";
 import { LoadingResults } from "@/components/loading-results";
 import { SearchResults } from "@/components/search-results";
+import { Component, type ReactNode } from "react";
 
 export default function CategoriesPage({
   searchParams,
@@ -21,9 +22,53 @@ export default function CategoriesPage({
         <CategorySearch />
 
         <Suspense fallback={<LoadingResults />}>
-          <SearchResults searchParams={searchParams} />
+          <ErrorBoundary
+            fallback={
+              <div className="p-4 border border-red-300 bg-red-50 rounded-md">
+                <h3 className="text-red-800 font-medium">
+                  Error loading results
+                </h3>
+                <p className="text-red-600">
+                  There was a problem loading the search results. Please try
+                  again later.
+                </p>
+              </div>
+            }
+          >
+            <SearchResults searchParams={searchParams} />
+          </ErrorBoundary>
         </Suspense>
       </main>
     </div>
   );
+}
+// Add this ErrorBoundary component at the bottom of the file
+("use client");
+
+interface ErrorBoundaryProps {
+  fallback: ReactNode;
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
 }

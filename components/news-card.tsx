@@ -23,12 +23,24 @@ export function NewsCard({ news }: NewsCardProps) {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-48 w-full">
-        <Image
-          src={news.imageUrl || "/placeholder.svg?height=200&width=400"}
-          alt={news.title}
-          fill
-          className="object-cover"
-        />
+        {news.imageUrl ? (
+          <Image
+            src={news.imageUrl || "/placeholder.svg?height=200&width=400"}
+            alt={news.title}
+            fill
+            className="object-cover"
+            onError={(e) => {
+              // If image fails to load, replace with placeholder
+              const target = e.target as HTMLImageElement;
+              target.onerror = null; // Prevent infinite error loop
+              target.src = "/placeholder.svg?height=200&width=400";
+            }}
+          />
+        ) : (
+          <div className="h-full w-full bg-muted flex items-center justify-center">
+            <span className="text-muted-foreground">No image available</span>
+          </div>
+        )}
         <div className="absolute top-2 left-2 flex gap-2">
           <Badge
             variant={

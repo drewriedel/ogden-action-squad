@@ -11,7 +11,7 @@ export default function HomePage() {
       <main className="container mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold mb-6">Ogden Action Squad News Hub</h1>
         <p className="text-muted-foreground mb-8">
-          Stay informed and take action on issues that matter to your community
+          Stay informed and take action on issues that matter to your community!
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
