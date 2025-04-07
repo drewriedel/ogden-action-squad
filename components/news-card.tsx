@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -9,17 +11,59 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookmarkIcon, ExternalLinkIcon, ShareIcon } from "lucide-react";
+import {
+  BookmarkIcon,
+  ExternalLinkIcon,
+  ShareIcon,
+  CheckIcon,
+} from "lucide-react";
 import type { NewsItem } from "@/types/news";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { saveAction, isActionSaved } from "@/lib/saved-actions";
+import { toast } from "sonner";
 
 interface NewsCardProps {
   news: NewsItem;
 }
 
 export function NewsCard({ news }: NewsCardProps) {
+  // Client component needs useState
+  const [savedActions, setSavedActions] = useState<Record<number, boolean>>({});
+
+  // Check initially which actions are already saved
+  useEffect(() => {
+    const initialSavedState: Record<number, boolean> = {};
+    news.actions.forEach((action, index) => {
+      initialSavedState[index] = isActionSaved(news.id, action);
+    });
+    setSavedActions(initialSavedState);
+  }, [news]);
+
+  // Function to handle saving an action
+  const handleSaveAction = (action: string, index: number) => {
+    if (savedActions[index]) {
+      toast.info("This action is already saved");
+      return;
+    }
+
+    saveAction({
+      newsId: news.id,
+      title: news.title,
+      action: action,
+      level: news.level,
+      category: news.category,
+      source: news.source,
+      url: news.url,
+    });
+
+    // Update local state
+    setSavedActions((prev) => ({ ...prev, [index]: true }));
+    toast.success("Action saved! View it in your Saved Actions.");
+  };
+
   return (
     <Card className="overflow-hidden">
       <div className="relative h-48 w-full">
@@ -91,7 +135,22 @@ export function NewsCard({ news }: NewsCardProps) {
                 <div className="h-5 w-5 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
                   {index + 1}
                 </div>
-                <span>{action}</span>
+                <div className="flex-1 flex justify-between items-start">
+                  <span>{action}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 px-2 ml-2"
+                    onClick={() => handleSaveAction(action, index)}
+                    disabled={savedActions[index]}
+                  >
+                    {savedActions[index] ? (
+                      <CheckIcon className="h-3 w-3 text-green-500" />
+                    ) : (
+                      <BookmarkIcon className="h-3 w-3" />
+                    )}
+                  </Button>
+                </div>
               </li>
             ))}
           </ul>
